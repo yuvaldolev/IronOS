@@ -1,21 +1,15 @@
+use std::env;
+use std::fs;
+
 fn main() {
-    // Read the environment variables that were set in build script.
-    let uefi_path = env!("UEFI_PATH");
-    let bios_path = env!("BIOS_PATH");
+    let current_exe = env::current_exe().unwrap();
 
-    // Choose whether to start the UEFI or BIOS image.
-    let uefi = false;
+    let bios_target = current_exe.with_file_name("ironos_bios.img");
+    let uefi_target = current_exe.with_file_name("ironos_uefi.img");
 
-    // Run IronOS in QEMU.
-    let mut cmd = std::process::Command::new("qemu-system-x86_64");
-    if uefi {
-        cmd.arg("-bios").arg(ovmf_prebuilt::ovmf_pure_efi());
-        cmd.arg("-drive")
-            .arg(format!("format=raw,file={uefi_path}"));
-    } else {
-        cmd.arg("-drive")
-            .arg(format!("format=raw,file={bios_path}"));
-    }
-    let mut child = cmd.spawn().unwrap();
-    child.wait().unwrap();
+    fs::copy(env!("BIOS_IMAGE"), &bios_target).unwrap();
+    fs::copy(env!("UEFI_IMAGE"), &uefi_target).unwrap();
+
+    println!("BIOS disk image at {}", bios_target.display());
+    println!("UEFI disk image at {}", uefi_target.display());
 }
