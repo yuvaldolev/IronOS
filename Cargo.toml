@@ -1,14 +1,5 @@
-[package]
-name = "ironos"
-version = "0.1.0"
-edition = "2021"
-
-[profile.dev]
-# Disable stack unwinding on panic.
-panic = "abort"
-
-[profile.release]
-# Disable stack unwinding on panic.
-panic = "abort"
-
-[dependencies]
+[workspace]
+resolver = "2"
+members = [
+    "ironos",
+]
