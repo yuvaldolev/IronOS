@@ -1,8 +1,4 @@
 [workspace]
 resolver = "2"
-members = [
-    "ironos",
-]
-default-members = [
-    "ironos",
-]
+members = ["ironos"]
+default-members = ["ironos"]
