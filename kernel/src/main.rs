@@ -32,14 +32,16 @@ fn kernel_main(boot_info: &'static mut BootInfo) -> ! {
     // Finally, initialize the logger using the last two variables.
     init_logger(raw_frame_buffer, frame_buffer_info);
 
-    log::info!("Hello, Kernel Mode!");
+    // Kernel initialization completed.
+    log::info!("IronOS Kernel is initialized!");
 
     loop {}
 }
 
 /// Invoked on panic.
 #[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
+fn panic(info: &PanicInfo) -> ! {
+    log::error!("KERNEL PANIC: {info}");
     loop {}
 }
 
