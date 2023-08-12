@@ -30,7 +30,7 @@ fn kernel_main(boot_info: &'static mut BootInfo) -> ! {
     let raw_frame_buffer = frame_buffer.buffer_mut();
 
     // Finally, initialize the logger using the last two variables.
-    init_logger(raw_frame_buffer, frame_buffer_info);
+    initialize_logger(raw_frame_buffer, frame_buffer_info);
 
     // Kernel initialization completed.
     log::info!("IronOS Kernel is initialized!");
@@ -45,7 +45,7 @@ fn panic(info: &PanicInfo) -> ! {
     loop {}
 }
 
-fn init_logger(buffer: &'static mut [u8], info: FrameBufferInfo) {
+fn initialize_logger(buffer: &'static mut [u8], info: FrameBufferInfo) {
     let logger = LOGGER.get_or_init(move || LockedLogger::new(buffer, info, true, false));
     log::set_logger(logger).expect("Logger already set");
     log::set_max_level(log::LevelFilter::Trace);
