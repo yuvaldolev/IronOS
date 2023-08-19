@@ -7,4 +7,8 @@ edition = "2021"
 bootloader-x86_64-common = "0.11.4"
 bootloader_api = "0.11.4"
 conquer-once = { version = "0.4.0", default-features = false }
+lazy_static = { version = "1.4.0", features = ["spin_no_std"] }
 log = { version = "0.4.19", default-features = false }
+
+[target.'cfg(target_arch = "x86_64")'.dependencies]
+x86_64 = "0.14.10"
