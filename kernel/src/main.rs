@@ -8,7 +8,7 @@ use bootloader_api::BootInfo;
 use bootloader_x86_64_common::logger::LockedLogger;
 use conquer_once::spin::OnceCell;
 
-use kernel::interrupts;
+use kernel::{global_descriptor_table, interrupts};
 
 bootloader_api::entry_point!(kernel_main);
 
@@ -25,15 +25,23 @@ fn kernel_main(boot_information: &'static mut BootInfo) -> ! {
     // Start the kernel initialization process.
     log::info!("IronOS Kernel is initializing");
 
-    // Initialize the IDT.
-    log::info!("Initializing IDT");
-    interrupts::initialize_idt();
+    // Initialize the Global Descriptor Table.
+    log::info!("Initializing Global Descriptor Table");
+    global_descriptor_table::initialize();
+
+    // Initialize the Interrupt Descriptor Table.
+    log::info!("Initializing Interrupt Descriptor Table");
+    interrupts::initialize_interrupt_descriptor_table();
 
     // Kernel initialization completed.
     log::info!("IronOS Kernel initialization completed!");
 
     // TODO: Remove.
-    x86_64::instructions::interrupts::int3();
+    fn stack_overflow() {
+        stack_overflow(); // for each recursion, the return address is pushed
+    }
+    // trigger a stack overflow
+    stack_overflow();
     log::info!("Didn't crash!");
 
     loop {}

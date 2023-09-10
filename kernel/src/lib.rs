@@ -3,4 +3,5 @@
 
 mod architecture;
 
+pub use architecture::global_descriptor_table;
 pub use architecture::interrupts;
