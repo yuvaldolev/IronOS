@@ -33,16 +33,16 @@ fn kernel_main(boot_information: &'static mut BootInfo) -> ! {
     log::info!("Initializing Interrupt Descriptor Table");
     interrupts::initialize_interrupt_descriptor_table();
 
+    // Initialize the PICs.
+    log::info!("Initializing PICs");
+    interrupts::initialize_pics();
+
+    // Enable interrupts.
+    log::info!("Enabling interrupts");
+    interrupts::enable();
+
     // Kernel initialization completed.
     log::info!("IronOS Kernel initialization completed!");
-
-    // TODO: Remove.
-    fn stack_overflow() {
-        stack_overflow(); // for each recursion, the return address is pushed
-    }
-    // trigger a stack overflow
-    stack_overflow();
-    log::info!("Didn't crash!");
 
     loop {}
 }
