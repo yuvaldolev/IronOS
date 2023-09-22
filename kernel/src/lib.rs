@@ -2,6 +2,6 @@
 #![feature(abi_x86_interrupt)]
 
 mod architecture;
+mod kernel;
 
-pub use architecture::global_descriptor_table;
-pub use architecture::interrupts;
+pub use kernel::Kernel;

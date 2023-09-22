@@ -8,7 +8,7 @@ use bootloader_api::BootInfo;
 use bootloader_x86_64_common::logger::LockedLogger;
 use conquer_once::spin::OnceCell;
 
-use kernel::{global_descriptor_table, interrupts};
+use kernel::Kernel;
 
 bootloader_api::entry_point!(kernel_main);
 
@@ -19,29 +19,12 @@ fn kernel_main(boot_information: &'static mut BootInfo) -> ! {
     // Extract the framebuffer from to boot information struct.
     let (framebuffer, framebuffer_info) = extract_framebuffer(boot_information);
 
-    // Finally, initialize the logger using the last two variables.
+    // Initialize the kernel framebuffer logger.
     initialize_logger(framebuffer, framebuffer_info);
 
-    // Start the kernel initialization process.
+    // Initialize the Kernel.
     log::info!("IronOS Kernel is initializing");
-
-    // Initialize the Global Descriptor Table.
-    log::info!("Initializing Global Descriptor Table");
-    global_descriptor_table::initialize();
-
-    // Initialize the Interrupt Descriptor Table.
-    log::info!("Initializing Interrupt Descriptor Table");
-    interrupts::initialize_interrupt_descriptor_table();
-
-    // Initialize the PICs.
-    log::info!("Initializing PICs");
-    interrupts::initialize_pics();
-
-    // Enable interrupts.
-    log::info!("Enabling interrupts");
-    interrupts::enable();
-
-    // Kernel initialization completed.
+    let _kernel = Kernel::new();
     log::info!("IronOS Kernel initialization completed!");
 
     loop {}
