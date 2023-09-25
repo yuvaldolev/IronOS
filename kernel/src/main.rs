@@ -25,7 +25,7 @@ fn kernel_main(boot_information: &'static mut BootInfo) -> ! {
     // Initialize the Kernel.
     log::info!("IronOS Kernel is initializing");
     let _kernel = Kernel::new();
-    // x86_64::instructions::interrupts::int3();
+    x86_64::instructions::interrupts::int3();
     log::info!("IronOS Kernel initialization completed!");
 
     loop {}

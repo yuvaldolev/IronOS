@@ -1,8 +1,10 @@
+use core::pin::Pin;
+
 use crate::architecture::architecture_api::ArchitectureApi;
 use crate::architecture::x86_64::interrupts::InterruptDescriptorTable;
 
 pub struct X86_64 {
-    interrupt_descriptor_table: InterruptDescriptorTable,
+    interrupt_descriptor_table: Pin<&'static mut InterruptDescriptorTable>,
 }
 
 impl X86_64 {
@@ -10,8 +12,6 @@ impl X86_64 {
         // Initialize the Interrupt Descriptor Table.
         log::info!("Initializing Interrupt Descriptor Table");
         let interrupt_descriptor_table = InterruptDescriptorTable::new();
-
-        super::interrupts::exception_handlers::breakpoint_handler();
 
         // log::info!("Initializing Global Descriptor Table");
         // global_descriptor_table::initialize();

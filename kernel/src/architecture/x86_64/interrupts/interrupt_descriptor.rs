@@ -2,7 +2,7 @@ use const_default::ConstDefault;
 
 use crate::architecture::x86_64::interrupts::interrupt_descriptor_type_attributes::InterruptDescriptorTypeAttributes;
 
-#[derive(ConstDefault, Default)]
+#[derive(Clone, ConstDefault, Copy, Default)]
 #[repr(C, packed)]
 pub struct InterruptDescriptor {
     offset_1: u16,
