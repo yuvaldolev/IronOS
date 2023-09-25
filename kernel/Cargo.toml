@@ -4,9 +4,11 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+bitflags = "2.4.0"
 bootloader-x86_64-common = "0.11.4"
 bootloader_api = "0.11.4"
 conquer-once = { version = "0.4.0", default-features = false }
+const-default = { version = "1.0.0", features = ["derive"] }
 lazy_static = { version = "1.4.0", features = ["spin_no_std"] }
 linked_list_allocator = "0.10.5"
 log = { version = "0.4.19", default-features = false }
