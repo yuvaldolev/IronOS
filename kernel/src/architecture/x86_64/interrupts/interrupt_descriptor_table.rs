@@ -71,3 +71,7 @@ impl Default for InterruptDescriptorTable {
         }
     }
 }
+
+pub fn initialize() {
+    let interrupt_descriptor_table = InterruptDescriptorTable::new();
+}

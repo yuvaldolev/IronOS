@@ -8,8 +8,6 @@ use bootloader_api::BootInfo;
 use bootloader_x86_64_common::logger::LockedLogger;
 use conquer_once::spin::OnceCell;
 
-use kernel::Kernel;
-
 bootloader_api::entry_point!(kernel_main);
 
 static LOGGER: OnceCell<LockedLogger> = OnceCell::uninit();
@@ -24,7 +22,7 @@ fn kernel_main(boot_information: &'static mut BootInfo) -> ! {
 
     // Initialize the Kernel.
     log::info!("IronOS Kernel is initializing");
-    let _kernel = Kernel::new();
+    kernel::initialize();
     x86_64::instructions::interrupts::int3();
     log::info!("IronOS Kernel initialization completed!");
 

@@ -1,16 +1,8 @@
-use crate::architecture::Architecture;
+use crate::architecture;
 
-pub struct Kernel {
-    architecture: Architecture,
-}
-
-impl Kernel {
-    pub fn new() -> Self {
-        // Perform the architecture-specific initialization.
-        log::info!("Starting architecture-specific initialization");
-        let architecture = Architecture::new();
-        log::info!("Architecture-specific initialization completed");
-
-        Self { architecture }
-    }
+pub fn initialize() {
+    // Perform the architecture-specific initialization.
+    log::info!("Starting architecture-specific initialization");
+    let architecture = architecture::initialize();
+    log::info!("Architecture-specific initialization completed");
 }

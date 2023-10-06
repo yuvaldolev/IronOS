@@ -3,5 +3,6 @@ mod interrupt_descriptor;
 mod interrupt_descriptor_table;
 mod interrupt_descriptor_table_descriptor;
 mod interrupt_descriptor_type_attributes;
+mod interrupts;
 
-pub use interrupt_descriptor_table::InterruptDescriptorTable;
+pub use interrupts::initialize;

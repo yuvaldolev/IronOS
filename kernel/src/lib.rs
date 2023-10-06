@@ -4,4 +4,4 @@
 mod architecture;
 mod kernel;
 
-pub use kernel::Kernel;
+pub use kernel::initialize;
