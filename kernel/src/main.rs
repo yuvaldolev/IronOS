@@ -49,7 +49,7 @@ fn extract_framebuffer(
     let framebuffer = framebuffer_option.unwrap();
 
     // Extract the framebuffer info and, to satisfy the borrow checker, clone it.
-    let framebuffer_info = framebuffer.info().clone();
+    let framebuffer_info = framebuffer.info();
 
     // Get the framebuffer's mutable raw byte slice.
     let raw_framebuffer = framebuffer.buffer_mut();
